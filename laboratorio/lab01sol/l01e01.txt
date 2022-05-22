@@ -1,0 +1,111 @@
+Esercizio 01
+------------
+
+Parte 1
+
+mkdir soEx01
+cd soEx01
+mkdir src
+mkdir bin
+mkdir test
+cd src
+mkdir include
+mkdir lib
+cd ..
+cd test
+mkdir script
+mkdir results
+
+
+Parte 2
+
+Scaricare dalla pagina web il file lab01e01in.txt copiarlo nella
+directory src e quindi utilizzando tale direttorio come direttorio
+corrente copiarlo nei direttori test, script e results utilizzando
+solo path assoluti.
+
+cp lab01e01in.txt /home/myusername/soEx01/src
+cd /home/myusername/soEx01/src
+cp lab01e01in.txt /home/myusername/soEx01/test
+cp lab01e01in.txt /home/myusername/soEx01/test/script
+cp lab01e01in.txt /home/myusername/soEx01/test/results
+
+Verificare che i file creati esistano, e controllarne i diritti,
+Utilizzare i comandi more, less e cat per verificarne il contenuto.
+
+less /home/myusername/soEx01/test/lab01e01in.txt
+less /home/myusername/soEx01/test/script/lab01e01in.txt
+less /home/myusername/soEx01/test/results/lab01e01in.txt
+
+ls -l /home/myusername/soEx01/test/lab01e01in.txt
+ls -l /home/myusername/soEx01/test/script/lab01e01in.txt
+ls -l /home/myusername/soEx01/test/results/lab01e01in.txt
+
+Cancellarli sempre senza cambiare il direttorio corrente, utilizzando
+solo path relativi.
+
+# working directory soEx01/src 
+rm ../test/lab01e01in.txt
+rm ../test/script/lab01e01in.txt
+rm ../test/results/lab01e01in.txt
+
+Ripetere la stessa sequenza di operazioni dal direttorio padre
+di src, ovvero soEx01.
+
+cd ~/soEx01
+cp src/lab01e01in.txt test/lab01e01in.txt
+cp src/lab01e01in.txt test/script/lab01e01in.txt
+cp src/lab01e01in.txt test/results/lab01e01in.txt
+
+less test/lab01e01in.txt
+ls -l test/lab01e01in.txt
+rm test/lab01e01in.txt
+less test/lab01e01in.txt
+ls -l test/lab01e01in.txt
+rm test/script/lab01e01in.txt
+rm test/results/lab01e01in.txt
+
+
+- Parte 03
+Impartendo tutti i comandi dalla radice del proprio utente si
+effettui quanto segue.
+Copiare l'intero albero di direttori soEx01 in soEx01backup usando
+il comando "cp" per file singoli e "mkdir" per i direttori.
+Cancellare interamente soEx01 usando il comando "rm" per file singoli
+e "rmdir" per i direttori.
+Ripetere tanto l'operazione di copia quanto quella di cancellazione
+utilizzando le versioni ricorsive dei comandi "cp" e "rm".
+
+Versioni ricorsive
+
+cp -r ~/soEx01 ~/soEx01backup 
+
+rm -r ~/soEx01 
+
+
+= Parte 4
+Verificare funzionamento e utilita' dei comandi:
+pwd, wc, history
+
+* pwd
+/home/myusername/soEx01
+
+(Stampa il path assoluto della directory corrente)
+
+* wc lab01e01in.txt 
+100  467 3114 lab01e01in.txt
+
+(Stampa rispettivamente il numero di righe, di parole e di caratteri
+del file passato come argomento)
+
+* history
+
+(Stampa gli ultimi comandi eseguiti sul terminale)
+
+Usare il comando man per avere descrizione dettagliata dei comandi:
+man pwd
+man wc
+man history
+
+
+

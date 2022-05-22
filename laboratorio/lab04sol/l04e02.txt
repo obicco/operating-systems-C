@@ -1,0 +1,44 @@
+int main () {
+  int i = 0;
+
+  setbuf(stdout,0);
+  while (i<=2 && fork()){
+    if (!fork()) {
+      fprintf (stdout, "Running Exec ...");
+      execlp ("echo", "echo", "i*i", (char *) 0);
+    }
+    i++;
+    fprintf (stdout, "Running System ...");
+    system ("echo i+i");
+  }
+
+  return (0);
+} 
+
+
+Il processo che chiameremo Parent genera 6 figli.
+3 figli terminano immediatamente per la condizione
+nel ciclo while (&&fork()).
+Gli altri 3 utilizzando una exec stampano
+i*i
+(poiche' la exec sostituisce l'immagine del processo
+chiamante senza ritornare, questi figli terminaranno
+subito dopo aver stampato i*i).
+
+Il Parent invece continuera' la sua esecuzione
+stampando i+i per 3 volte.
+
+Un possibile output del programma(escludendo le
+printf) potrebbe essere 
+
+i+i  
+i*i
+i+i
+i*i
+i+i
+i*i
+
+L'ordine di stampa dei messaggi sopra potrebbe essere
+diverso a seconda di come vengono schedulati i processi,
+dato che Parent e i figli sono concorrenti.
+  

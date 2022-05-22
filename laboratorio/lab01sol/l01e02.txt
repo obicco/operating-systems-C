@@ -1,0 +1,49 @@
+Esercizio 02
+-------------
+
+Gestione dei permessi
+
+Verificare:
+- il proprio username e il gruppo di appartenenza.
+  E' possibile modificarli?
+  
+who
+groups    
+
+- la disposizione della propria home all'interno della gerarchia del file
+  system del sistema utilizzato.
+
+ls /home
+
+- la struttura della home del sistema (e.g., quali sottodirettori possiede,
+  dove si trovano le home dei colleghi di corso, etc.)
+
+ls /home  
+
+- i diritti di lettura e scrittura sui vari direttori. 
+  E' possibile leggere e copiare file e direttori di altri utenti del
+  sistema superandone le protezioni?
+
+ls -l /home
+
+cd /home/user1
+
+ls -l /home/user1
+
+etc etc 
+
+
+- verificare che cosa succede se si eliminano i diritti di lettura o di
+  esecuzione a un direttorio.
+  Come e' possibile modificare nello stesso modo i diritti di accesso a
+  *tutti* i file e direttori di un albero di direttori (ad esempio eliminare
+  il diritto di lettura a tutti, user, group, other, del direttorio
+  soEx01backup)?
+  Suggerimento: man chmod ... recursive ...
+
+
+  chmod -r a-r soEx01backup
+
+
+
+

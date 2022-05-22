@@ -1,0 +1,47 @@
+1.
+find / -name "*.exe" -executable -size +1k
+oppure
+find / -regex ".*\.exe" -executable -size +1k
+
+2.
+find / -name "*.c" -size +100c
+oppure
+find / -regex ".*\.c" -size +100c
+
+3.
+find / -type f -regextype posix-extended -regex "(.*A.*a.*)|(.*a.*A.*)" -exec tail -n 3 '{}' \;
+oppure
+find / -type f -regextype posix-extended -regex "(.*A.*a.*\..*)|(.*a.*A.*\..*)" -exec tail -n 3 '{}' \;
+oppure
+find / -type f \( -name "*A*a*" -or -name "*a*A*" \) -exec tail -n 3 '{}' \;
+
+4.
+Nome senza estensione
+find / -mindepth 3 -maxdepth 5 -user quer -size +249c -name "????" -type f -exec wc -c '{}' \;
+Nome senza estensione con espressione regolare (saltando il path)
+find / -mindepth 3 -maxdepth 5 -user quer -size +249c -regex ".*\/...." -type f -exec wc -c '{}' \;
+Nome con qualsiasi estensione
+find / -mindepth 3 -maxdepth 5 -user quer -size +249c -name "????.*" -type f -exec wc -c '{}' \;
+
+5.
+find / -name "A*zzz*.???" -exec tar -zcvf '{}'.tar.gz '{}' \;
+oppure
+find / -regex ".*A.*zzz.*\...." -exec tar -zcvf '{}'.tar.gz '{}' \;
+
+6.
+find / -type d -name "bin" -exec ls '{}' \;
+
+7.
+find / -name "*.c" ! -user quer
+oppure (ma solo nel caso i campi siano separati da spazi singoli e non multipli)
+find / -name "*.c" -exec ls -la \{} \; | cut -d " " -f 3,10 | grep -v quer| cut -d " " -f 2
+
+8.
+find / -maxdepth 1 -user quer -exec chmod go-xrw '{}' \; 
+
+
+
+
+
+
+

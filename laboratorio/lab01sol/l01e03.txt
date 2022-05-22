@@ -1,0 +1,137 @@
+﻿Esercizio 03
+------------
+
+- Scaricare dalla pagina web il file "lab01e03in.txt"
+
+  user@host:~/lab01$ wget http://fmgroup.polito.it/quer/teaching/so/laib/testi/lab01e03in.txt    
+
+- Nella stessa cartella in cui è memorizzato il file creare:
+  - Una copia del file con nome "lab01e03in.copy"
+  - Un hard-link al file con nome "lab01e03in.hl"
+  - Un symbolic-link al file con nome "lab01e03in.sl"
+
+  user@host:~/lab01$ cp lab01e03in.txt lab01e03in.cop
+  user@host:~/lab01$ ln lab01e03in.txt lab01e03in.hl
+  user@host:~/lab01$ ln -s lab01e03in.txt lab01e03in.sl
+
+- Visualizzare le informazioni dei file mediante il comando ls -l
+  - Cosa si può notare nella seconda colonna dell'output?
+  - Perchè i file non hanno tutti la stessa dimensione?
+
+  user@host:~/lab01$ ls -l
+  -rw-r--r-- 1 user user 5202 Oct 14 12:37 lab01e03in.copy
+  -rw-r--r-- 2 user user 5202 Oct 14 12:37 lab01e03in.hl
+  lrwxrwxrwx 1 user user   14 Oct 14 12:37 lab01e03in.sl -> lab01e03in.txt
+  -rw-r--r-- 2 user user 5202 Oct 14 12:37 lab01e03in.txt
+
+  La seconda colonna dell'output del comando ls -l indica il numero
+  di hard link al file.
+  Le directory entry "lab01e03in.txt" e "lab01e03in.hl" puntano allo
+  stesso file, pertanto il contatore di hard link per tale file è pari
+  a 2.
+  Le rimanenti directory entry puntano tutte a file a se' stanti.
+  Il numero di hard link per tali file e' pertanto pari a 1.
+        
+  Le entry "lab01e03in.txt" e "lab01e03in.hl" hanno la stessa
+  dimensione perche' rappresentano di fatto lo stesso file.
+  Il file "lab01e03in.copy" è una copia esatta di "lab01e03in.txt"
+  e pertanto anch'esso presenta la stessa dimensione.
+  Il file "lab01e03in.sl" presenta una dimensione inferiore
+  perche', essendo un link simbolico, esso non contiene gli stessi
+  dati degli altri file ma solo un riferimento ad un'altra entry
+  nel file system (la entry corrispondente a "lab01e03in.txt").
+
+- Verificare che il contenuto dei tre file creati sia lo stesso
+  del file originale mediante il comando diff
+  - Perche' sebbene il file "lab01e03in.sl" abbia una dimensione
+    diversa dagli altri ha lo stesso contenuto?
+
+  user@host:~/lab01$ diff lab01e03in.txt lab01e03in.copy
+  user@host:~/lab01$ diff lab01e03in.txt lab01e03in.hl
+  user@host:~/lab01$ diff lab01e03in.txt lab01e03in.sl
+
+  Il comando diff non rileva differenze tra il contenuto del
+  file "lab01e03in.txt" e quello del file "lab01e03in.sl".
+  Questo perchè, quando il comando diff apre il file
+  "lab01e03in.sl", il sistema operativo riconosce in tale file
+  un symbolic link, ne interpreta il contenuto e apre il file
+  da esso puntato ("lab01e03in.txt"). 
+
+- Aprire il file "lab01e03in.txt" con un editor di testo a
+  piacere e modificarne il contenuto
+  - Come ci si aspetta che vengano modificate le informazioni
+    di dimensione e data di ultima modifica dei file? Perchè?
+  - Verificare la risposta mediante il comando ls -l
+  - Quali modifiche ci si aspetta riguardo al contenuto dei file?
+    Perchè?
+  - Verificare la risposta confrontando nuovamente i tre file
+    creati con l'originale mediante il comando diff
+
+  user@host:~/lab01$ gedit lab01e03in.txt &
+  ............Modifica del file lab01e03in.txt............
+  user@host:~/lab01$ ls -l
+  -rw-r--r-- 1 user user 5202 Oct 14 12:37 lab01e03in.copy
+  -rw-r--r-- 2 user user 4644 Oct 14 14:16 lab01e03in.hl
+  lrwxrwxrwx 1 user user   14 Oct 14 12:37 lab01e03in.sl -> lab01e03in.txt
+  -rw-r--r-- 2 user user 4644 Oct 14 14:16 lab01e03in.txt
+
+  Modificando il contenuto di "lab01e03in.txt" ci si aspetta che
+  il contenuto di "lab01e03in.hl" sia modificato di conseguenza,
+  trattandosi dello stesso file.
+  Si puo' notare infatti che sia la dimensione che la data/ora
+  di ultima modifica per le due entry cambia di comune accordo.
+  I file "lab01e03in.copy" e "lab01e03in.sl", essendo file separati,
+  non subiscono variazioni.
+  Si noti che alcuni editor di testo, come ad esempio Emacs, adottano
+  un comportamento diverso quando un file per cui esiste più di un hard
+  link viene salvato.
+  In particolare, Emacs prima rinomina il file originale appendendo
+  una "~" al nome del file e in seguito salva una copia del file
+  modificato con il nome del file originale.
+
+  user@host:~/lab01$ diff lab01e03in.txt lab01e03in.copy
+  .........Il comando diff riporta modifiche............
+  user@host:~/lab01$ diff lab01e03in.txt lab01e03in.hl
+  user@host:~/lab01$ diff lab01e03in.txt lab01e03in.sl
+  .........Il comando diff riporta modifiche............
+
+- Rinominare il file "lab01e03in.txt" in "lab01e03in.backup"
+  - Cosa si può notare ora dall'output del comando ls -l?
+  - Confrontare il contenuto del file "lab01e03in.backup"
+    con quello dei file "lab01e03in.hl" e "lab01e03in.sl".
+    Perchè nel secondo caso si ottiene un messaggio d'errore?
+
+  user@host:~/lab01$ mv lab01e03in.txt lab01e03in.backup
+  user@host:~/lab01$ ls -l
+  -rw-r--r-- 1 user user 5202 Oct 14 12:37 lab01e03in.copy
+  -rw-r--r-- 2 user user 5202 Oct 14 12:37 lab01e03in.hl
+  lrwxrwxrwx 1 user user   14 Oct 14 12:37 lab01e03in.sl -> lab01e03in.txt       <-------Colorato in rosso
+  -rw-r--r-- 2 user user 5202 Oct 14 12:37 lab01e03in.backup
+
+  La entry relativa al file "lab01e03in.sl" ha ora l'ultimo campo
+  colorato di rosso a simboleggiare il broken link (link simbolico
+  che punta a un target non esistente).
+
+  user@host:~/lab01$ diff lab01e03in.backup lab01e03in.hl
+  user@host:~/lab01$ diff lab01e03in.backup lab01e03in.sl
+  diff: lab01e03in.sl: No such file or directory
+
+ Il messaggio di errore indica che il link simbolico "lab01e03in.sl"
+  è broken, pertanto non è possibile accederne al contenuto. 
+
+- Creare un nuovo file vuoto di nome "lab01e03in.txt"
+  - Quale ci si aspetta che sia diventato ora il contenuto del file
+    "lab01e03in.sl"? Perchè?
+  - Verificare mediante il comando cat
+
+  user@host:~/lab01$ touch lab01e03in.txt
+
+  Il file "lab01e03in.sl" continua a puntare al percorso relativo al
+  file "lab01e03in.txt" nel file system. Il contenuto di "lab01e03in.sl"
+  pertanto sarà ora uguale a quello del file appena creato.
+
+  user@host:~/lab01$ cat lab01e03in.sl
+
+  Il comando cat non ritorna un messaggio d'errore questa volta ma
+  visualizza invece il contenuto del file "lab01e03in.txt" (file vuoto).
+

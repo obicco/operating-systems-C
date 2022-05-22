@@ -1,0 +1,14 @@
+A.
+> gcc -Wall -o pgrm  l05e01.c
+> ./pgrm < inFile.txt 1> pariFile.txt 2> dispariFile.txt
+
+
+
+B.
+> ls -laR /home/... | wc --lines
+> cat lab01.txt lab02.txt lab03.txt | wc --bytes
+> ps -aux | grep root | wc --lines
+
+
+
+

@@ -1,0 +1,121 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 11
+(pseudo prova d'esame)
+--------------------------------------
+
+Esercizio 01
+------------
+
+Implementare con le primitive semaforiche il prologo
+e l'epilogo di 4 funzioni A, B, C e D in modo che i
+processi che le chiamano rispettino la seguente path
+expression:
+
+path ( A+B; {C}; D ) end
+
+Il significato di questa path expression e' che un insieme
+di processi puo'
+* chiamare la funzione A *oppure* la funzione B in mutua
+  esclusione (quindi un processo attende se la funzione e'
+  utilizzata da un altro processo)
+* poi puo' chiamare la funzione C (che puo' essere eseguita
+  in concorrenza da tutti i processi)
+* infine puo' chiamare la funzione D.
+
+Se ad esempio la prima tra tutte le funzioni chiamate e' la
+funzione D, il processo che l'ha chiamata sara' bloccato finche'
+altri processi non avranno chiamato A oppure B e poi C.
+La path expression e' ciclica, cioe' quando e' stata eseguita
+la funzione D, possono di nuovo essere eseguite, senza attesa,
+le funzioni A oppure B etc. 
+
+Suggerimento
+------------
+
+Fare riferimento alla soluzione dei Readers & Writers,
+della mutua esclusione e della sincronizzazione pura
+inizializzando opportunamente i semafori.
+
+
+
+Esercizio 02
+------------
+
+Illustrare le caratteristiche, le differenze e l'uso tipico
+delle system call fork, execve e system.
+
+
+
+Esercizio 03
+------------
+
+Realizzare uno script bash che riceva due parametri:
+* il nome di un utente del sistema
+* il nome di un direttorio.
+Lo script deve riconoscere tutti i file dell'utente specificato
+che si trovano nel direttorio indicato e che contengono (almeno)
+una riga che comincia con la stringa
+"***Da modificare"
+In tali file occorre:
+* cancellare tale riga
+* appendere al nome del file stesso la stringa "_mod".
+
+Si controlli il corretto passaggio dei parametri.
+
+
+
+Esercizio 04
+------------
+
+Si scriva un programma multi-thread che ordini un vettore di interi
+tramite l'algoritmo di merge-sort utilizzando la concorrenza invece
+della ricorsione.
+
+Ciascun thread a partire da quello iniziale, deve:
+- ricevere un vettore da ordinare di dimensione n
+- suddividere il vettore in due parti di dimensione n/2
+- attivare un thread su ciascuna parte del vettore
+- attendere la terminazione dei due thread
+- fondere le due parti ricevute di dimensione n/2 e gia' ordinate
+  mediante l'algoritmo di fusione (merge), generando un unico
+  vettore ordinato di dimensione n.
+
+Si osservi che la condizione di terminazione si verifica alla
+ricezione di un vettore di dimensione unitaria.
+
+Il vettore e la sua dimensione possono essere letti da tastiera,
+da file, ovvero generati casualmente a scelta.
+
+  
+
+Esercizio 05
+------------
+
+Siano dati i seguenti processi, con il relativo tempo di arrivo
+e la relativa durata:
+
+P1 0 11
+P2 2  9
+P3 4  7
+P4 6  5
+P5 8  3
+
+Si rappresentino i diagrammi di Gantt e si calcolino i tempi medi
+di attesa applicando gli algoritmi FCFS, SJF e SRTF.
+
+
+
+Esercizio 06
+------------
+
+Con riferimento alla prevenzione del deadlock mediante l'uso
+gerarchico delle risorse, si descrivano la tecnica e si dimostri
+che non puo' condurre al deadlock.
+
+
+
+
+

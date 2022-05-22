@@ -1,0 +1,82 @@
+﻿#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main () {
+  char str[100];
+  int i;
+
+  setbuf(stdout,0);
+  fork();
+  for (i=0; i<2; i++){
+    if (fork()!=0) {
+      sprintf (str, "echo system with i=%d", i);
+      system (str);
+    } else {
+      sprintf (str, "exec with i=%d", i);
+      execlp ("echo", "myPgrm", str, NULL);
+    }
+  }
+  return (0);
+}
+
+
+L'albero di generazione dei processi per il programma e'
+il seguente:
+
+        P1
+     /  |  \
+   P2   P3  P4
+  / \   
+ P5  P6 
+
+Dove P1 è il processo che inizia ad eseguire il programma,
+P2 e' il processo creato dalla prima fork (quella fuori dal ciclo for).
+I processi P3 e P4 sono creati da P1 all'interno del ciclo for.
+Ognuno di essi passa ad eseguire il comando echo e termina
+(il comando execlp infatti sostituisce completamente il segmento
+di codice del processo chiamante con un nuovo segmento di codice).
+Il processo P2 crea a sua volta due nuovi processi, P5 e P6,
+all'interno del ciclo for. Allo stesso modo di P3 e P4,
+anche P5 e P6 eseguono il comando echo e terminano.
+
+L'output del programma sarà per cui costituito da:
+- La stampa "echo system with i=0" effettuata dal
+  processo P1 mediante la chiamata a system durante
+  la prima iterazione del ciclo.
+- La stampa "echo system with i=1" effettuata dal
+  processo P1 mediante la chiamata a system durante
+  la seconda iterazione del ciclo.
+- La stampa "echo system with i=0" effettuata dal
+  processo P2 mediante la chiamata a system durante
+  la prima iterazione del ciclo.
+- La stampa "echo system with i=1" effettuata dal
+  processo P2 mediante la chiamata a system durante
+  la seconda iterazione del ciclo.
+- La stampa "echo exec with i=0" effettuata dal
+  processo P3 mediante la chiamata a execlp durante
+  la prima iterazione del ciclo.
+- La stampa "echo exec with i=1" effettuata dal
+  processo P4 mediante la chiamata a execlp durante
+  la seconda iterazione del ciclo.
+- La stampa "echo exec with i=0" effettuata dal
+  processo P5 mediante la chiamata a execlp durante
+  la prima iterazione del ciclo.
+- La stampa "echo exec with i=1" effettuata dal
+  processo P6 mediante la chiamata a execlp durante
+  la seconda iterazione del ciclo.
+
+L'ordine con cui queste sei linee possono comparire
+nell'output è non deterministico e dipende da come
+vengono schedulati i processi da parte del sistema
+operativo.
+Un possibile output è il seguente:
+
+system with i=0
+system with i=0
+system with i=1
+system with i=1
+exec with i=0
+exec with i=1
+exec with i=1
+exec with i=0
