@@ -1,0 +1,8 @@
+total 16
+drwxr-xr-x@  7 OSKAR  1000   224 Dec 27 23:06 .
+drwxr-xr-x@ 21 OSKAR  1000   672 Dec 27 23:06 ..
+drwxr-xr-x@  7 OSKAR  1000   224 Dec 26 13:22 Crash Course
+-rw-r--r--   1 OSKAR  1000    18 Dec 26 13:30 file.txt
+-rw-r--r--   1 OSKAR  1000     0 Dec 27 23:06 file1.txt
+-rw-r--r--   1 OSKAR  1000     0 Dec 27 23:06 file2.txt
+-rwxr-xr-x   1 OSKAR  1000  1806 Dec 27 23:06 helloScript.sh
