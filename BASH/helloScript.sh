@@ -117,4 +117,20 @@ echo $c
 echo $(st1^) #lower case
 echo $(st1^^) #upper case
 
-#NUBERS AND ARITHMETIC
+#NUMBERS AND ARITHMETIC
+n1 = 4
+n2 = 20
+
+echo $(( n1 + n2 ))
+#or you can write:
+echo $(expr $n1 + $n2 )
+echo $(expr $n1 - $n2 )
+echo $(expr $n1 \* $n2 )
+echo $(expr $n1 / $n2 )
+echo $(expr $n1 % $n2 )
+
+#From hex to decimal
+echo "Enter Hex number of your choice"
+read Hex
+echo -n "The decimal value of $Hex is : "
+echo "obase=10; ibase =16; $Hex" | bc
